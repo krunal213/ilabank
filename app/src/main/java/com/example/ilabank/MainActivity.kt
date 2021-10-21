@@ -41,6 +41,10 @@ class MainActivity : AppCompatActivity() {
             override fun onPageSelected(position: Int) {
                 val listItemAdapter : ListItemAdapter = findViewById<RecyclerView>(R.id.list).adapter as ListItemAdapter
                 listItemAdapter.notifyDataSetChanged(mainViewModel.sections[position].list)
+                val searchQuery = editTextSearch.text
+                editTextSearch.clearComposingText()
+                editTextSearch.text = searchQuery
+                editTextSearch.setSelection(editTextSearch.length())
             }
         })
 
@@ -50,7 +54,7 @@ class MainActivity : AppCompatActivity() {
             val list = screenSlidePagerAdapter.sections.get(viewPager.currentItem).list
             mainViewModel.searchItems(searchString,list)
                 .observe(this@MainActivity, Observer<ArrayList<SubSection>> {
-                    val listItemAdapter : ListItemAdapter = findViewById<RecyclerView>(R.id.list).adapter as ListItemAdapter
+                    val listItemAdapter: ListItemAdapter = findViewById<RecyclerView>(R.id.list).adapter as ListItemAdapter
                     listItemAdapter.notifyDataSetChanged(it)
                 })
         }

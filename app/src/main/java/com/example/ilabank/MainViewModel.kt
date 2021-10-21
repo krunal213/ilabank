@@ -35,15 +35,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
      }
 
     fun searchItems(searchString: String, subsections: ArrayList<SubSection>) : LiveData<ArrayList<SubSection>> = liveData {
-        emit(with(subsections.filter {
-            it.title.equals(searchString,false)
-        }as ArrayList<SubSection>){
-            if(isEmpty()){
-                subsections
-            }else{
-                this
-            }
-        })
+        emit(subsections.filter {
+            it.title.contains(searchString,false)
+        } as ArrayList<SubSection>)
     }
 
 }
